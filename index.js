@@ -10,71 +10,68 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
         console.log('Service Worker is registered', swReg);
 
         swRegistration = swReg;
-        //initializeUI();
+        //displaying form if serviceWorker is available
+        document.getElementById('myform').style.display = 'block';        
+
+        //getting initial state of subscription
+        swRegistration.pushManager.getSubscription()
+        .then(subscription=>{
+          if(subscription!==null){
+            isSubscribed = true;
+            console.log('User is already subscribed');
+          }else{
+            isSubscribed = false;
+            console.log('User not subscribed');                 
+          }
+        })
+
     })
     .catch(function(error) {
         console.error('Service Worker Error', error);
     });
-    } else {
+} else {
     console.warn('Push messaging is not supported');
-    pushButton.textContent = 'Push Not Supported';
+    document.getElementById('sw-error').style.display = 'block';
+    document.getElementById('myform').style.display = 'none';
 }
 
-  function initializeUI() {
-    if(isSubscribed){
-
+function subscribeUser(){
+  let emailField = document.getElementById('email');
+  if(emailField.value != ''){
+    //Subscribing user now
+    if(swRegistration == null){
+      alert('serviceWorker was not registerd');      
+    // }else if(!isSubscribed){
+    //   alert('not');      
     }else{
-        subscribeUser();
-    }
-
-    // Set the initial subscription value
-    swRegistration.pushManager.getSubscription()
-    .then(function(subscription) {
-      if (subscription !== null) {
+      const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+      swRegistration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey
+      }).then(currentSubscription=>{
+        // Send the subscription to be stored on server
+        axios({
+          method: 'post',
+          url: 'https://lokeshrmitra-devhosts.herokuapp.com/products/subs',
+          //url:'https://lokeshrmitra-devhosts.herokuapp.com/reply',
+          data: {
+            email: document.getElementById('email').value ,
+            subscription: currentSubscription
+          }
+        }).then(response=>{
+          console.log(response)
           isSubscribed = true;
-        console.log('User IS subscribed.');
-      } else {
-        isSubscribed = false;
-        console.log('User is NOT subscribed.');
-      }
-
-      //updateBtn();
-    });
-  }
-
-  function subscribeUser() {
-    const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
-    swRegistration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: applicationServerKey
-    })
-    .then(function(subscription) {
-      console.log('User is subscribed.');
-
-      updateSubscriptionOnServer(subscription);
-
-        isSubscribed = true;
-    })
-    .catch(function(err) {
-      console.log('Failed to subscribe the user: ', err);
-      //updateBtn();
-    });
-  }
-
-  function updateSubscriptionOnServer(subscription){
-      let em = $('#email').val();
-      var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": `https://lokeshrmitra-devhosts.herokuapp.com/products/subs?email=${em}&subscription=${JSON.stringify(subscription)}`,
-        "method": "POST",
+        })
+        .catch(error=>console.log(error));
+      })
     }
-
-    $.ajax(settings).done(function (response) {
-        console.log(response);
-    });
+  }else if(isSubscribed){
+    alert('already subscribed to someone');
+  }else{
+    alert('Email is empty');
   }
 
+}
 /**
  * Public Key:
 BB-vYEM6B3wVD1JX4hYuuGoFJsLeRGMt7G8to6ZAyQyHHTwzUAk3AekCU7r_yRSL3xDEX2T1m9KJsraElv5icfk
@@ -98,15 +95,3 @@ hKEheVRB2afntwIU1WtLnNusfEa2LI1luCwRBuYk_Jk
   }
   return outputArray;
 }
-
-$(document).ready(()=>{
-
-    $('#subscribe').click(()=>{
-        let email = $('#email');
-        if(email.val() != ''){
-            initializeUI();
-        }else{
-            alert('Empty email')
-        }
-    })
-});
