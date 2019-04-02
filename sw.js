@@ -5,7 +5,7 @@ self.addEventListener('push', function(event) {
     const title = 'Uberization';
     const options = {
       body: event.data.text(),
-      icon: 'images/icon.png',
+      icon: 'images/csgo.png',
       badge: 'https://png.icons8.com/search/ff0000',
       actions: [
         {
@@ -23,3 +23,14 @@ self.addEventListener('push', function(event) {
 
     event.waitUntil(self.registration.showNotification(title, options));
   });
+
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+
+  if (event.action === 'accept') {
+    clients.openWindow("/images");
+  }
+  else if (event.action === 'decline') {
+    clients.openWindow("/images2");
+  }
+}, false);
