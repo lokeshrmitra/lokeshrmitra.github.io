@@ -5,18 +5,16 @@ self.addEventListener('push', function(event) {
     const title = 'Uberization';
     const options = {
       body: event.data.text(),
-      icon: 'images/csgo.png',
-      badge: 'https://png.icons8.com/search/ff0000',
+      icon: 'images/principal-icon.png',
+      badge: 'images/principal-icon.png',
       actions: [
         {
           action: 'accept',
-          title: 'Accept',
-          icon: 'https://png.icons8.com/correct/'
+          title: 'Accept'
         },
         {
           action: 'decline',
-          title: 'Decline',
-          icon: 'https://png.icons8.com/x/'
+          title: 'Decline'
         }
       ]
     };
