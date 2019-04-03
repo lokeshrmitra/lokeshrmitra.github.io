@@ -59,8 +59,9 @@ function subscribeUser(){
             subscription: currentSubscription
           }
         }).then(response=>{
-          console.log(response)
           isSubscribed = true;
+          confirm('Subscription successful!');
+          emailField.value = "";
         })
         .catch(error=>console.log(error));
       })
