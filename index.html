@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="theme-color" content="#0091da" />
-
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Uberization</title>
-  </head>
-  <body>
+    <meta name="theme-color" content="#0091da" />
+    <!-- Horizon CSS -->
+    <link href="https://www.principalcdn.com/css/horizon/v2/horizon.min.css" rel="stylesheet">
+    <!-- Optional favicon and apple/android homescreen icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" type="image/x-icon" href="https://www.principalcdn.com/css/horizon/v2/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="https://www.principalcdn.com/css/horizon/v2/apple-touch-icon.png">
+    </head>
+    <body>
+    <!-- YOUR APP CONTENT HERE -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <Link to="/home" class="navbar-brand">Uberization Test App</Link>
+                </div>
+            </div>
+        </nav>
 
-      <h1 id="sw-error" style="color:red; display: none;">serviceWorker not available</h1>
-      <form role="form" id="myform">
-        <label >Email</label>
-        <input type="email" className="form-control" id="email" />
-        <button type="button" class="btn btn-default" id="subscribe" onclick="subscribeUser()">Subscribe</button>
-    </form>
+        <h1 id="sw-error" style="color:red; display: none;">serviceWorker not available</h1>
+        <form role="form" id="myform">
+            <div class="form-group">
+                <label >ID</label>
+                <input type="text" class="form-control" id="email" />
+            </div>
+            <button type="button" class="btn btn-default" id="subscribe" onclick="subscribeUser()">Subscribe</button>
+        </form>
+    <!-- Horizon JS -->
+    <script src="https://www.principalcdn.com/css/horizon/v2/horizon.min.js"></script>
+    <!-- Application specific JS -->
 
-    
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-  <script src="index.js" ></script>
-
-  </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script src="index.js" ></script>
+    </body>
 </html>

@@ -11,7 +11,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
 
         swRegistration = swReg;
         //displaying form if serviceWorker is available
-        document.getElementById('myform').style.display = 'block';        
+        document.getElementById('myform').style.display = 'block';
 
         //getting initial state of subscription
         swRegistration.pushManager.getSubscription()
@@ -21,7 +21,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
             console.log('User is already subscribed');
           }else{
             isSubscribed = false;
-            console.log('User not subscribed');                 
+            console.log('User not subscribed');
           }
         })
 
@@ -40,9 +40,9 @@ function subscribeUser(){
   if(emailField.value != ''){
     //Subscribing user now
     if(swRegistration == null){
-      alert('serviceWorker was not registerd');      
+      alert('ERR: serviceWorker was not registerd. Try refreshing the page');
     // }else if(!isSubscribed){
-    //   alert('not');      
+    //   alert('not');
     }else{
       const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
       swRegistration.pushManager.subscribe({
@@ -66,9 +66,9 @@ function subscribeUser(){
       })
     }
   }else if(isSubscribed){
-    alert('already subscribed to someone');
+    alert('Your device is already subscribed');
   }else{
-    alert('Email is empty');
+    alert('ID filed is empty');
   }
 
 }
