@@ -18,19 +18,21 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <Link to="/home" class="navbar-brand">Uberization Test App</Link>
+                    <a href="#" class="navbar-brand">Uberization Test App</a>
                 </div>
             </div>
         </nav>
 
-        <h1 id="sw-error" style="color:red; display: none;">serviceWorker not available</h1>
-        <form role="form" id="myform">
-            <div class="form-group">
-                <label >ID</label>
-                <input type="text" class="form-control" id="email" />
-            </div>
-            <button type="button" class="btn btn-default" id="subscribe" onclick="subscribeUser()">Subscribe</button>
-        </form>
+        <div class="container">
+            <h1 id="sw-error" style="color:red; display: none;">serviceWorker not available</h1>
+            <form role="form" id="myform">
+                <div class="form-group">
+                    <label >ID :</label>
+                    <input type="text" class="form-control" id="email" />
+                </div>
+                <button type="button" class="btn btn-default" id="subscribe" onclick="subscribeUser()">Subscribe</button>
+            </form>
+        </div>
     <!-- Horizon JS -->
     <script src="https://www.principalcdn.com/css/horizon/v2/horizon.min.js"></script>
     <!-- Application specific JS -->
