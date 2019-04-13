@@ -1998,7 +1998,7 @@ ${msgIdle}`, { headers: this.adapter.newHeaders({ 'Content-Type': 'text/plain' }
         }
         onPush(msg) {
             // Push notifications without data have no effect.
-            console.log(msg);
+            console.log(msg.data.json());
             if (!msg.data) {
                 return;
             }
